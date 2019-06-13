@@ -1,0 +1,31 @@
+{
+    "compilerOptions": {
+        "target": "es6",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "allowSyntheticDefaultImports": true,
+        "sourceMap": true,
+        "removeComments": false,
+        "rootDirs": [
+            "./src"
+        ],
+        "baseUrl": "./src",
+        "jsx": "react",
+        "alwaysStrict": true,
+        "noUnusedLocals": true,
+        "importHelpers": true,
+        "experimentalDecorators": true,
+        "resolveJsonModule": true,
+        "lib": [
+            "es7",
+            "dom"
+        ],
+        "skipLibCheck": true,
+        "typeRoots": [
+            "node",
+            "node_modules/@types",
+        ]
+    },
+    "include": ["src/**/*.d.ts"],
+    "files": ["src/index.tsx"]
+}
