@@ -1,2 +1,2 @@
 # typescript-react
-typescript开发react环境搭建，支持按需加载
+webpack + typescript + react + antd + less
