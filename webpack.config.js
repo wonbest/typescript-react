@@ -1,10 +1,11 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
+const TerserPlugin = require("terser-webpack-plugin");
 
 module.exports = {
     mode: 'development',
+    // mode: "production",
     entry: {
         app: path.join(__dirname, './src/index')
     },
@@ -89,16 +90,52 @@ module.exports = {
     },
     resolve: {
         extensions: [".ts", ".tsx", ".js"],
-        // modules: [path.join(__dirname, 'src'), path.join(__dirname, 'node_modules')],
-        // plugins: [
-        //     new TsconfigPathsPlugin({
-        //         configFile: path.join(__dirname, 'tsconfig.json'),
-        //         extensions: [".ts", ".tsx", ".js"]
-        //     })
-        // ],
-        // alias: { mobx: path.join(__dirname, 'node_modules/mobx/lib/mobx.es6.js') }
     },
-    devtool: 'source-map',
+    optimization: {
+        minimizer: [
+            new TerserPlugin({
+                cache: true,
+                parallel: true,
+                sourceMap: false,
+                include: [path.join(__dirname, "webapp-src")],
+                exclude: /node_modules/,
+                terserOptions: {
+                    warnings: false,
+                    compress: {
+                        drop_console: true,
+                        collapse_vars: true,
+                        reduce_vars: true
+                    },
+                    output: {
+                        beautify: false,
+                        comments: false
+                    }
+                }
+            })
+        ],
+        // splitChunks: {
+        // 	chunks: "async",
+        // 	minSize: 30000,
+        // 	maxSize: 0,
+        // 	minChunks: 1,
+        // 	maxAsyncRequests: 5,
+        // 	maxInitialRequests: 3,
+        // 	automaticNameDelimiter: "~",
+        // 	name: true,
+        // 	cacheGroups: {
+        // 		vendors: {
+        // 			test: /[\\/]node_modules[\\/]/,
+        // 			priority: -10
+        // 		},
+        // 		default: {
+        // 			minChunks: 2,
+        // 			priority: -20,
+        // 			reuseExistingChunk: true
+        // 		}
+        // 	}
+        // }
+    },
+    // devtool: 'source-map',
     plugins: [
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
