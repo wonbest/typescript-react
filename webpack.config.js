@@ -1,5 +1,5 @@
 const path = require('path');
-// const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 // const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 
@@ -70,21 +70,21 @@ module.exports = {
             //     }
             // },
             //样式加载 less
-            // {
-            //     test: /\.less$/,
-            //     use: [{
-            //         loader: "style-loader"
-            //     },
-            //     { loader: 'css-loader', options: { sourceMap: false } },
-            //     {
-            //         loader: "less-loader",
-            //         options: {
-            //             strictMath: true,
-            //             noIeCompat: true
-            //         }
-            //     }
-            //     ]
-            // },
+            {
+                test: /\.less$/,
+                use: [{
+                    loader: "style-loader"
+                },
+                { loader: 'css-loader', options: { sourceMap: false } },
+                {
+                    loader: "less-loader",
+                    options: {
+                        strictMath: true,
+                        noIeCompat: true
+                    }
+                }
+                ]
+            },
         ]
     },
     resolve: {
@@ -100,7 +100,7 @@ module.exports = {
     },
     devtool: 'source-map',
     plugins: [
-        // new CleanWebpackPlugin(['dist']),
+        new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'D',
             template: './src/index.html',
