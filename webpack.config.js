@@ -97,8 +97,6 @@ module.exports = {
                 cache: true,
                 parallel: true,
                 sourceMap: false,
-                include: [path.join(__dirname, "webapp-src")],
-                exclude: /node_modules/,
                 terserOptions: {
                     warnings: false,
                     compress: {
