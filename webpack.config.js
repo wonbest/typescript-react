@@ -17,15 +17,6 @@ module.exports = {
     },
     module: {
         rules: [
-            // {
-            //     test: /\.tsx?$/,
-            //     exclude: /node_modules/,
-            //     loader: 'ts-loader',
-            //     options: {
-            //         transpileOnly: true,
-            //         experimentalWatchApi: true,
-            //     }
-            // },
             {
                 test: /\.(ts|tsx)?$/,
                 include: [path.join(__dirname, 'src')],
@@ -58,18 +49,18 @@ module.exports = {
                 test: /\.css$/,
                 use: ['style-loader', 'css-loader']
             },
-            //解析url
-            // {
-            //     test: /\.(woff|woff2|jpg|png)$/,
-            //     use: {
-            //         loader: 'url-loader',
-            //         options: {
-            //             name: 'imanges/[hash].[ext]',
-            //             limit: 5000,
-            //             mimetype: 'application/font-woff'
-            //         }
-            //     }
-            // },
+            // 解析url
+            {
+                test: /\.(woff|woff2|jpg|png)$/,
+                use: {
+                    loader: 'url-loader',
+                    options: {
+                        name: 'imanges/[hash].[ext]',
+                        limit: 5000,
+                        mimetype: 'application/font-woff'
+                    }
+                }
+            },
             //样式加载 less
             {
                 test: /\.less$/,
@@ -138,7 +129,7 @@ module.exports = {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             title: 'D',
-            template: './src/index.html',
+            template: 'raw-loader!./src/index.html',
             // inject: true
         })
     ],
