@@ -2,6 +2,7 @@ const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
 
 module.exports = {
     mode: 'development',
@@ -47,7 +48,7 @@ module.exports = {
             //样式加载 css
             {
                 test: /\.css$/,
-                use: ['style-loader', 'css-loader']
+                use: [MiniCssExtractPlugin.loader, 'css-loader']
             },
             // 解析url
             {
@@ -64,18 +65,24 @@ module.exports = {
             //样式加载 less
             {
                 test: /\.less$/,
-                use: [{
-                    loader: "style-loader"
-                },
-                { loader: 'css-loader', options: { sourceMap: false } },
-                {
-                    loader: "less-loader",
-                    options: {
-                        strictMath: true,
-                        noIeCompat: true
-                    }
-                }
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    'css-loader',
+                    'less-loader'
                 ]
+                // use: [
+                //     {
+                //         loader: "style-loader"
+                //     },
+                //     { loader: 'css-loader', options: { sourceMap: false } },
+                //     {
+                //         loader: "less-loader",
+                //         options: {
+                //             strictMath: true,
+                //             noIeCompat: true
+                //         }
+                //     }
+                // ]
             },
         ]
     },
@@ -131,6 +138,10 @@ module.exports = {
             title: 'D',
             template: 'raw-loader!./src/index.html',
             // inject: true
+        }),
+        new MiniCssExtractPlugin({
+            filename: '[name].[hash].css',
+            chunkFilename: '[name].[id].[hash].css',
         })
     ],
     // 编译时控制台输出情况
